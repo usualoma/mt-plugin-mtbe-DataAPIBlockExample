@@ -1,0 +1,15 @@
+id: DataAPIBlockExample
+name: DataAPIBlockExample
+version: 0.0.1
+author_name: "Taku Amano <taku@taaas.jp>"
+description: This plugin provides custom block editor block
+
+editors:
+  block_editor:
+    extension: extension.tmpl
+    block_types:
+      taaas-dataapiblockexample:
+        label: DataAPIBlockExample
+        identifier: taaas-dataapiblockexample
+        is_default_hidden: 0
+        is_form_element: 0
