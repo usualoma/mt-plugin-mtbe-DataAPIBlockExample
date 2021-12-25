@@ -30,49 +30,6 @@ interface HtmlProps {
 // XXX: Change this value to your environment
 const mtDataApiUrl = "/cgi-bin/mt/dataapiproxy.cgi";
 
-async function search({ term }) {
-  const selectId = "published_entries_select";
-
-  const oldSelect = document.querySelector(`#${selectId}`);
-  if (oldSelect) {
-    oldSelect.remove();
-  }
-
-  const params = new URLSearchParams();
-  params.set("search", term);
-
-  const res = await fetch(`${mtDataApiUrl}/v4/search?${params.toString()}`);
-  const data = await res.json();
-
-  const select = document.createElement("select");
-  select.id = selectId;
-
-  const blank = document.createElement("option");
-  blank.innerText = "選択してください";
-  select.appendChild(blank);
-
-  data.items.forEach((item) => {
-    const option = document.createElement("option");
-    option.innerText = item.title;
-    select.appendChild(option);
-  });
-
-  select.addEventListener("change", () => {
-    if (!select.selectedIndex) {
-      MTBlockEditorSetCompiledHtml("");
-      return;
-    }
-
-    const item = data.items[select.selectedIndex - 1];
-    const anchor = document.createElement("a");
-    anchor.href = item.permalink;
-    anchor.innerText = item.title;
-    MTBlockEditorSetCompiledHtml(anchor.outerHTML);
-  });
-
-  document.body.appendChild(select);
-}
-
 const Editor: React.FC<EditorProps> = ({ block }: EditorProps) => {
   const searchRef = useRef();
 
